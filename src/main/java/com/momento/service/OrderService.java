@@ -66,9 +66,9 @@ public class OrderService {
 
 
                 // 이미지가 존재하면 이미지 URL을 가져오고, 그렇지 않으면 빈 문자열 사용
-                String imgUrl = (image != null) ? image.getProductContentId().getContent() : "";
+                String imgNm = (image != null) ? image.getImgName() : "";
 
-                OrderItemDto orderItemDto = new OrderItemDto(orderItem, imgUrl);
+                OrderItemDto orderItemDto = new OrderItemDto(orderItem, imgNm);
                 orderHistDto.addOrderItemDto(orderItemDto);
             }
 
