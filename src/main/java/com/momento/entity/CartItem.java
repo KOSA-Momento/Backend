@@ -1,23 +1,31 @@
 package com.momento.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "CartItems")
-public class CartItem implements Serializable {
-
-
+@Getter @Setter
+public class CartItem extends BaseEntity {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "productsId", referencedColumnName = "id", insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "products_id")
     private Product product;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "membersId", referencedColumnName = "id", insertable = false, updatable = false)
-    private Member member;
+//    public static CartItem createCartItem(Member member, Product product) {
+//        CartItem cartItem = new CartItem();
+//        cartItem.setMember(member); //해당 회원 장바구니 생성
+//        cartItem.setProduct(product); //장바구니에 담을 상품 엔티티를 생성하는 메소드
+//        return cartItem;
+//    }
 
-    // Getter와 Setter 메서드 생략
 }

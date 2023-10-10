@@ -14,44 +14,45 @@ import java.util.List;
 @Table(name = "Members")
 @Getter @Setter
 @ToString
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "nickname", unique = true, nullable = false)
+    @Column(name = "nickname", unique = true)
     private String nickname;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "insta_id", unique = true, nullable = false)
+    @Column(name = "insta_id", unique = true)
     private String instaId;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "member")
-    private List<CartItem> cartItems;
+
+    @OneToOne(mappedBy = "member")
+    private Cart cart;
 
     @OneToMany(mappedBy = "member")
     private List<LikeItem> likeItems;
 
     @OneToMany(mappedBy = "member")
-    private List<OrderItem> orderItems;
+    private List<Order> orders;
 
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){

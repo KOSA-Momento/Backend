@@ -1,11 +1,12 @@
 package com.momento.entity;
 
-import com.momento.constant.OrderStatus;
+//import com.momento.constant.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+//import java.time.LocalDateTime;
+//import java.util.List;
 
 @Entity
 @Table(name = "OrderItems")
@@ -14,23 +15,29 @@ import java.util.List;
 public class OrderItem {
 
     @Id
-    private int id;
-
-    @Column(name = "order_date", nullable = false)
-    private String orderDate;
-
-    @Column(name = "total_price", nullable = false)
-    private String totalPrice;
-
-    @Column(name = "completed", nullable = false)
-    private OrderStatus orderStatus;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Members_id")
-    private Member member;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @OneToMany(mappedBy = "orderItem")
-    private List<Order> orders;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
+    @Column(name = "order_price")
+    private int orderPrice;
+
+//    public static OrderItem createOrderItem(Product product) {
+//        OrderItem orderItem = new OrderItem();
+//        orderItem.setProduct(product);
+//        orderItem.setOrderPrice(product.getPrice());
+//        return orderItem;
+//    }
+//
+//    public int getTotalPrice() {
+//        return orderPrice;
+//    }
 
 }
