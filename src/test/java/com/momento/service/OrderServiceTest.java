@@ -1,6 +1,5 @@
 package com.momento.service;
 
-import com.momento.constant.ItemSellStatus;
 import com.momento.constant.OrderStatus;
 import com.momento.dto.OrderDto;
 import com.momento.entity.*;
