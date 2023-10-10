@@ -48,6 +48,7 @@ public class Product {
     @Column(name = "price")
     private int price;
 
+    // 복합 pk로 만들 것이기 때문에 수정 필요
     @ManyToOne
     @JoinColumn(name = "Theme_id")
     private Theme theme;
@@ -56,7 +57,7 @@ public class Product {
     private List<Image> images;
 
     @OneToMany(mappedBy = "product")
-    private List<Order> orders;
+    private List<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "product")
     private List<CartItem> cartItems;

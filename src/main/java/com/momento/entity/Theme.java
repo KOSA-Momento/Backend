@@ -17,5 +17,4 @@ public class Theme {
     @OneToMany(mappedBy = "theme")
     private List<Product> products;
 
-    // Getter와 Setter 메서드 생략
 }

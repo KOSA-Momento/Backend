@@ -1,6 +1,7 @@
 package com.momento.entity.id;
 
 import com.momento.entity.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

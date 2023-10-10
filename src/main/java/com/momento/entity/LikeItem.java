@@ -8,14 +8,15 @@ import java.io.Serializable;
 public class LikeItem implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
-    @JoinColumn(name = "membersId", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "members_id")
     private Member member;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "productsId", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "products_id")
     private Product product;
 
-    // Getter와 Setter 메서드 생략
 }
