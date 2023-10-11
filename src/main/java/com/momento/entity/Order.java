@@ -1,70 +1,30 @@
 package com.momento.entity;
 
-import com.momento.constant.OrderStatus;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Orders")
-@Getter
-@Setter
-public class Order implements Serializable {
+public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
+
+    @Column(name = "order_date", nullable = false)
+    private String orderDate;
+
+    @Column(name = "total_price", nullable = false)
+    private String totalPrice;
+
+    @Column(name = "completed", nullable = false)
+    private boolean completed;
 
     @ManyToOne
-    @JoinColumn(name = "members_id")
+    @JoinColumn(name = "Members_id")
     private Member member;
 
-    @Column(name = "order_date")
-    private LocalDateTime orderDate;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
-    @Column(name = "order_status")
-    private OrderStatus orderStatus;
-
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL
-            , orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<OrderItem> orderItems = new ArrayList<>();
-
-
-//    public void addOrderItem(OrderItem orderItem) {
-//        orderItems.add(orderItem);
-//        orderItem.setOrder(this);
-//    }
-
-
-
-//    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
-//        Order order = new Order();
-//        order.setMember(member);
-//
-//        for(OrderItem orderItem : orderItemList) {
-//            order.addOrderItem(orderItem);
-//        }
-//
-//        order.setOrderStatus(OrderStatus.COMPLETED);
-//        order.setOrderDate(LocalDateTime.now());
-//        return order;
-//    }
-
-//    public int getTotalPrice() {
-//        int totalPrice = 0;
-//        for(OrderItem orderItem : orderItems){
-//            totalPrice += orderItem.getTotalPrice();
-//        }
-//        return totalPrice;
-//    }
-
-
-
+    // Getter와 Setter 메서드 생략
 }
-

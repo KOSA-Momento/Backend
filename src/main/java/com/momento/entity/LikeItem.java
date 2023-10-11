@@ -7,16 +7,17 @@ import java.io.Serializable;
 @Table(name = "LikeItems")
 public class LikeItem implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+
+    @Id
     @ManyToOne
-    @JoinColumn(name = "members_id")
+    @JoinColumn(name = "membersId", referencedColumnName = "id", insertable = false, updatable = false)
     private Member member;
 
+    @Id
     @ManyToOne
-    @JoinColumn(name = "products_id")
+    @JoinColumn(name = "productsId", referencedColumnName = "id", insertable = false, updatable = false)
     private Product product;
 
+    // Getter와 Setter 메서드 생략
 }

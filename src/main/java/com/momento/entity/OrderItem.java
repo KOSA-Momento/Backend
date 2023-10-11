@@ -1,43 +1,24 @@
 package com.momento.entity;
 
-//import com.momento.constant.OrderStatus;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-//import java.time.LocalDateTime;
-//import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "OrderItems")
-@Getter
-@Setter
-public class OrderItem {
+public class OrderItem implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int ordersId;
+
+    @Id
+    private int productsId;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "ordersId", referencedColumnName = "id", insertable = false, updatable = false)
     private Order order;
 
-    @Column(name = "order_price")
-    private int orderPrice;
-
-//    public static OrderItem createOrderItem(Product product) {
-//        OrderItem orderItem = new OrderItem();
-//        orderItem.setProduct(product);
-//        orderItem.setOrderPrice(product.getPrice());
-//        return orderItem;
-//    }
-//
-//    public int getTotalPrice() {
-//        return orderPrice;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "productsId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Product product;
 
 }

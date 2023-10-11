@@ -14,39 +14,35 @@ import java.util.List;
 @Table(name = "Members")
 @Getter @Setter
 @ToString
-public class Member extends BaseEntity {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "nickname", unique = true)
+    @Column(name = "nickname", unique = true, nullable = false)
     private String nickname;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "insta_id", unique = true)
+    @Column(name = "insta_id", unique = true, nullable = false)
     private String instaId;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-
-    @OneToOne(mappedBy = "member")
-    private Cart cart;
+    @OneToMany(mappedBy = "member")
+    private List<CartItem> cartItems;
 
     @OneToMany(mappedBy = "member")
     private List<LikeItem> likeItems;
@@ -54,6 +50,8 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
@@ -65,9 +63,7 @@ public class Member extends BaseEntity {
         member.setPhoneNumber(memberFormDto.getPhoneNumber());
         member.setAddress(memberFormDto.getAddress());
         member.setInstaId(memberFormDto.getInstaId());
-        //member.setRole(Role.USER);
-        member.setRole(Role.ADMIN);
+        member.setRole(Role.USER);
         return member;
     }
-
 }
