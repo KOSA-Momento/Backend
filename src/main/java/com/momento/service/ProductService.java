@@ -1,20 +1,23 @@
 package com.momento.service;
 
+import com.momento.dto.ImageDto;
+import com.momento.dto.MainProductDto;
 import com.momento.dto.ProductFormDto;
+import com.momento.dto.ProductSearchDto;
 import com.momento.entity.Image;
 import com.momento.entity.Product;
 import com.momento.repository.ImageRepository;
 import com.momento.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
-import com.momento.dto.ImageDto;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +39,11 @@ public class ProductService {
             Image image = new Image();
             image.setProduct(product);
 
+            if(i == 0)
+                image.setRepimgYn("Y");
+            else
+                image.setRepimgYn("N");
+
             imageService.saveImage(image, imageFileList.get(i));
         }
 
@@ -44,7 +52,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductFormDto getProductDtl(Long productId) {
-        List<Image> imageList = imageRepository.findByProductIdOrderByContentUrlDesc(productId);
+        List<Image> imageList = imageRepository.findByProductIdOrderById(productId);
         List<ImageDto> imageDtoList = new ArrayList<>();
         for (Image image : imageList) {
             ImageDto imageDto = ImageDto.of(image);
@@ -64,17 +72,23 @@ public class ProductService {
         Product product = productRepository.findById(productFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
         product.updateProduct(productFormDto);
-        List<Integer> imageIds = productFormDto.getImageIds();
+        List<Long> imageIds = productFormDto.getImageIds();
 
         //이미지 등록
-        for(int i=0;i<imageFileList.size();i++){
-            imageService.updateImage(Long.valueOf(imageIds.get(i)),
-                    imageFileList.get(i));
+        for (int i = 0; i < imageFileList.size(); i++) {
+            imageService.updateImage(imageIds.get(i), imageFileList.get(i));
         }
 
         return product.getId();
     }
 
+    @Transactional(readOnly = true)
+    public Page<Product> getAdminProductPage(ProductSearchDto productSearchDto, Pageable pageable){
+        return productRepository.getAdminProductPage(productSearchDto, pageable);
+    }
 
-
+    @Transactional(readOnly = true)
+    public Page<MainProductDto> getMainProductPage(ProductSearchDto productSearchDto, Pageable pageable){
+        return productRepository.getMainProductPage(productSearchDto, pageable);
+    }
 }
