@@ -32,7 +32,7 @@ public class OrderService {
 
     public Long order(OrderDto orderDto, String email) {
 
-        Product product = productRepository.findById(orderDto.getOrderId())
+        Product product = productRepository.findById(orderDto.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
 
         Member member = memberRepository.findByEmail(email);
@@ -104,7 +104,7 @@ public class OrderService {
         List<OrderItem> orderItemList = new ArrayList<>();
 
         for (OrderDto orderDto : orderDtoList) {
-            Product product = productRepository.findById(orderDto.getOrderId())
+            Product product = productRepository.findById(orderDto.getItemId())
                     .orElseThrow(EntityNotFoundException::new);
 
             OrderItem orderItem = OrderItem.createOrderItem(product);
