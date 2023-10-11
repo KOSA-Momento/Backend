@@ -32,21 +32,20 @@ public class Order implements Serializable {
     @JoinColumn(name = "member")
     private Member member;
 
+
+
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
 
 
-
     public static Order createOrder(Member member, List<OrderItem> orderItemList) {
         Order order = new Order();
         order.setMember(member);
-
         for(OrderItem orderItem : orderItemList) {
             order.addOrderItem(orderItem);
         }
-
         order.setOrderStatus(OrderStatus.COMPLETED);
         order.setOrderDate(LocalDateTime.now());
         return order;

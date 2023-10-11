@@ -16,6 +16,9 @@
                 <li class="nav-product" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                     <a class="nav-link" href="/admin/product/new">상품 등록</a>
                 </li>
+                <li class="nav-product" sec:authorize="hasAnyAuthority('ROLE_USER')">
+                    <a class="nav-link" href="/user/product/new">매입 신청</a>
+                </li>
                 <li class="nav-product" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                     <a class="nav-link" href="/admin/products">상품 관리</a>
                 </li>

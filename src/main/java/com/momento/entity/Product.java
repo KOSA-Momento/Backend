@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.List;
 
@@ -15,7 +17,8 @@ import java.util.List;
 @Table(name = "Products")
 @Getter
 @Setter
-public class Product {
+@ToString
+public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +30,11 @@ public class Product {
     @Column(name = "b4_description", length = 2000)
     private String b4Description;
 
-    @ManyToOne
-    @JoinColumn(name = "b4_seller_id")
-    private Member b4SellerId;
+    //    @ManyToOne
+//    @JoinColumn(name = "b4_seller_id")
+//    private Member b4SellerId;
+    @Column(name = "b4_seller_id")
+    private String b4SellerId;
 
     @Column(name = "b4_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -69,11 +74,12 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<LikeItem> likeItems;
 
+
     public void updateProduct(ProductFormDto productFormDto){
         this.id = productFormDto.getId();
         this.b4Title = productFormDto.getB4Title();
         this.b4Description = productFormDto.getB4Description();
-//        this.b4SellerId = productFormDto.getB4SellerId();
+        this.b4SellerId = productFormDto.getB4SellerId();
         this.b4Date = LocalDateTime.parse(productFormDto.getB4Date());
         this.b4InstaId = productFormDto.getB4InstaId();
         this.b4Price = productFormDto.getB4Price();

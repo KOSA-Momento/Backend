@@ -65,8 +65,8 @@ public class Member extends BaseEntity {
         member.setPhoneNumber(memberFormDto.getPhoneNumber());
         member.setAddress(memberFormDto.getAddress());
         member.setInstaId(memberFormDto.getInstaId());
-        //member.setRole(Role.USER);
-        member.setRole(Role.ADMIN);
+        member.setRole(Role.USER);
+        //member.setRole(Role.ADMIN);
         return member;
     }
 

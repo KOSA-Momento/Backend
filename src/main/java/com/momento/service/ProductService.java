@@ -16,6 +16,10 @@ import com.momento.dto.ImageDto;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 
+import com.momento.dto.ProductSearchDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -79,6 +83,9 @@ public class ProductService {
         return product.getId();
     }
 
-
+    @Transactional(readOnly = true)
+    public Page<Product> getAdminProductPage(ProductSearchDto productSearchDto, Pageable pageable){
+        return productRepository.getAdminProductPage(productSearchDto, pageable);
+    }
 
 }

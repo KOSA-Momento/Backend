@@ -13,7 +13,13 @@ public class ImageDto {
 
     private Product product;
 
-    private String originalImageName;
+    private String imgName;
+
+    private String oriImgName;
+
+    private String imgUrl;
+
+    private String repImgYn;
 
     private static ModelMapper modelMapper = new ModelMapper();
 

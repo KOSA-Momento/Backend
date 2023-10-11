@@ -58,4 +58,48 @@ public class ImageService {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public void updateImage(Long productId, MultipartFile imageFile) throws Exception {
+//        if (!imageFile.isEmpty()) {
+//            List<Image> savedImages = imageRepository.findByProductIdOrderByImgUrlDesc(productId);
+//
+//            if (savedImages.isEmpty()) {
+//                throw new EntityNotFoundException("Images not found for product with ID: " + productId);
+//            }
+//
+//            // 기존 이미지 삭제
+//            for (Image savedImage : savedImages) {
+//                String imageName = savedImage.getImgName();
+//                if (imageName != null && !imageName.isEmpty()) {
+//                    String imagePath = imageLocation + "/" + imageName;
+//                    fileService.deleteFile(imagePath);
+//                }
+//            }
+//
+//            String originalFileName = imageFile.getOriginalFilename();
+//            String uploadedFileName = fileService.uploadFile(imageLocation, originalFileName, imageFile.getBytes());
+//            String imageUrl = "/images/product/" + uploadedFileName;
+//
+//            // 이미지 정보 업데이트
+//            for (Image savedImage : savedImages) {
+//                savedImage.updateImage(originalFileName, imageUrl);
+//            }
+//
+//            // 이미지 정보 저장 (옵션 - 필요하면 사용)
+//            // imageRepository.saveAll(savedImages);
+//        }
+//    }
 }
