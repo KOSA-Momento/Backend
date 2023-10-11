@@ -18,53 +18,50 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "members_id")
-    private Member member;
-
-    @Column(name = "order_date")
     private LocalDateTime orderDate;
 
-    @Column(name = "order_status")
     private OrderStatus orderStatus;
-
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL
             , orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "member")
+    private Member member;
 
-//    public void addOrderItem(OrderItem orderItem) {
-//        orderItems.add(orderItem);
-//        orderItem.setOrder(this);
-//    }
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
 
 
 
-//    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
-//        Order order = new Order();
-//        order.setMember(member);
-//
-//        for(OrderItem orderItem : orderItemList) {
-//            order.addOrderItem(orderItem);
-//        }
-//
-//        order.setOrderStatus(OrderStatus.COMPLETED);
-//        order.setOrderDate(LocalDateTime.now());
-//        return order;
-//    }
+    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+        Order order = new Order();
+        order.setMember(member);
 
-//    public int getTotalPrice() {
-//        int totalPrice = 0;
-//        for(OrderItem orderItem : orderItems){
-//            totalPrice += orderItem.getTotalPrice();
-//        }
-//        return totalPrice;
-//    }
+        for(OrderItem orderItem : orderItemList) {
+            order.addOrderItem(orderItem);
+        }
+
+        order.setOrderStatus(OrderStatus.COMPLETED);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for(OrderItem orderItem : orderItems){
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
 
 
 
 }
+
 

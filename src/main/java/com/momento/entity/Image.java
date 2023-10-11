@@ -10,6 +10,7 @@ import javax.persistence.*;
 //@IdClass(ProductImgId.class)
 public class Image {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
