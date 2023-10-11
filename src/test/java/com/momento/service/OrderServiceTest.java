@@ -56,7 +56,7 @@ class OrderServiceTest {
         Product product = saveProduct();
         Member member = saveMember();
 
-        OrderDto orderDto = new OrderDto(product.getId());
+        OrderDto orderDto = new OrderDto();
 
         Long orderId = orderService.order(orderDto, member.getEmail());
         Order order = orderRepository.findById(orderId)

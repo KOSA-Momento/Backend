@@ -43,6 +43,7 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    private int coin;
 
 
     @OneToOne(mappedBy = "member")
