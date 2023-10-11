@@ -30,8 +30,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "b4_seller_id")
     private Member b4SellerId;
-//    @Column(name = "b4_seller_id")
-//    private String b4sellerid;
 
     @Column(name = "b4_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

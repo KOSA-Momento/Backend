@@ -16,14 +16,14 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-import com.momento.dto.CartDetailDto;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
-//import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
+//import com.momento.dto.CartDetailDto;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.GetMapping;
+//
+////import org.springframework.web.bind.annotation.PatchMapping;
+//import org.springframework.web.bind.annotation.PathVariable;
+//
+//import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 @Controller
@@ -60,23 +60,23 @@ public class CartController {
     }
 
 
-    @GetMapping(value = "/cart")
-    public String orderHist(Principal principal, Model model){
-        List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName());
-        model.addAttribute("cartItems", cartDetailList);
-        return "cart/cartList";
-    }
-
-    @DeleteMapping(value = "/cartItem/{cartItemId}")
-    public @ResponseBody ResponseEntity deleteCartItem(@PathVariable("cartItemId") Long cartItemId, Principal principal){
-
-        if(!cartService.validateCartItem(cartItemId, principal.getName())){
-            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
-        }
-
-        cartService.deleteCartItem(cartItemId);
-
-        return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/cart")
+//    public String orderHist(Principal principal, Model model){
+//        List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName());
+//        model.addAttribute("cartItems", cartDetailList);
+//        return "cart/cartList";
+//    }
+//
+//    @DeleteMapping(value = "/cartItem/{cartItemId}")
+//    public @ResponseBody ResponseEntity deleteCartItem(@PathVariable("cartItemId") Long cartItemId, Principal principal){
+//
+//        if(!cartService.validateCartItem(cartItemId, principal.getName())){
+//            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+//        }
+//
+//        cartService.deleteCartItem(cartItemId);
+//
+//        return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
+//    }
 
 }

@@ -36,6 +36,11 @@ public class ProductService {
             Image image = new Image();
             image.setProduct(product);
 
+            if(i == 0)
+                image.setRepimgYn("Y");
+            else
+                image.setRepimgYn("N");
+
             imageService.saveImage(image, imageFileList.get(i));
         }
 
@@ -44,7 +49,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductFormDto getProductDtl(Long productId) {
-        List<Image> imageList = imageRepository.findByProductIdOrderByContentUrlDesc(productId);
+        List<Image> imageList = imageRepository.findByProductIdOrderById(productId);
         List<ImageDto> imageDtoList = new ArrayList<>();
         for (Image image : imageList) {
             ImageDto imageDto = ImageDto.of(image);
@@ -64,12 +69,11 @@ public class ProductService {
         Product product = productRepository.findById(productFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
         product.updateProduct(productFormDto);
-        List<Integer> imageIds = productFormDto.getImageIds();
+        List<Long> imageIds = productFormDto.getImageIds();
 
         //이미지 등록
-        for(int i=0;i<imageFileList.size();i++){
-            imageService.updateImage(Long.valueOf(imageIds.get(i)),
-                    imageFileList.get(i));
+        for (int i = 0; i < imageFileList.size(); i++) {
+            imageService.updateImage(imageIds.get(i), imageFileList.get(i));
         }
 
         return product.getId();

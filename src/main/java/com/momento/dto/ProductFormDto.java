@@ -56,7 +56,7 @@ public class ProductFormDto {
 
     private List<ImageDto> imageDtoList = new ArrayList<>();
 
-    private List<Integer> imageIds = new ArrayList<>();
+    private List<Long> imageIds = new ArrayList<>();
 
     private static ModelMapper modelMapper = new ModelMapper();
 
