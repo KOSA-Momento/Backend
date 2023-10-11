@@ -21,11 +21,11 @@ public class CartItem extends BaseEntity {
     @JoinColumn(name = "products_id")
     private Product product;
 
-//    public static CartItem createCartItem(Member member, Product product) {
-//        CartItem cartItem = new CartItem();
-//        cartItem.setMember(member); //해당 회원 장바구니 생성
-//        cartItem.setProduct(product); //장바구니에 담을 상품 엔티티를 생성하는 메소드
-//        return cartItem;
-//    }
+    public static CartItem createCartItem(Cart cart, Product product) {
+        CartItem cartItem = new CartItem();
+        cartItem.setCart(cart);
+        cartItem.setProduct(product);
+        return cartItem;
+    }
 
 }
