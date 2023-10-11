@@ -14,35 +14,39 @@ import java.util.List;
 @Table(name = "Members")
 @Getter @Setter
 @ToString
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "nickname", unique = true, nullable = false)
+    @Column(name = "nickname", unique = true)
     private String nickname;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "insta_id", unique = true, nullable = false)
+    @Column(name = "insta_id", unique = true)
     private String instaId;
 
-    @OneToMany(mappedBy = "member")
-    private List<CartItem> cartItems;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
+    @OneToOne(mappedBy = "member")
+    private Cart cart;
 
     @OneToMany(mappedBy = "member")
     private List<LikeItem> likeItems;
@@ -50,8 +54,6 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
@@ -63,7 +65,9 @@ public class Member {
         member.setPhoneNumber(memberFormDto.getPhoneNumber());
         member.setAddress(memberFormDto.getAddress());
         member.setInstaId(memberFormDto.getInstaId());
-        member.setRole(Role.USER);
+        //member.setRole(Role.USER);
+        member.setRole(Role.ADMIN);
         return member;
     }
+
 }
