@@ -10,15 +10,6 @@ import javax.persistence.*;
 //@IdClass(ProductImgId.class)
 public class Image {
 
-//    @Id
-//    @ManyToOne
-////    @JoinColumn(name = "products_id", referencedColumnName = "id")
-//    private Product product;
-//
-//    @Id
-//    private String content;
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
