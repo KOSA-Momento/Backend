@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Product extends BaseEntity {
+public class Product{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

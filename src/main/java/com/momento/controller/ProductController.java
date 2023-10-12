@@ -179,4 +179,11 @@ public class ProductController {
         return "product/productMng";
     }
 
+    @GetMapping(value = "/product/{productId}")
+    public String itemDtl(Model model, @PathVariable("productId") Long itemId){
+        ProductFormDto productFormDto = productService.getProductDtl(itemId);
+        model.addAttribute("product", productFormDto);
+        return "product/productDtl";
+    }
+
 }

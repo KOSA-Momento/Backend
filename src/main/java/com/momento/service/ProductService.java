@@ -20,6 +20,8 @@ import com.momento.dto.ProductSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.momento.dto.MainProductDto;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -88,4 +90,8 @@ public class ProductService {
         return productRepository.getAdminProductPage(productSearchDto, pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Page<MainProductDto> getMainProductPage(ProductSearchDto productSearchDto, Pageable pageable){
+        return productRepository.getMainProductPage(productSearchDto, pageable);
+    }
 }
